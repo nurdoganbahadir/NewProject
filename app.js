@@ -211,9 +211,35 @@ const data = [
   },
 ];
 
-const gsBtn = document.querySelector("gsBtn");
+const gsBtn = document.querySelector(".gsBtn");
 const cardDiv = document.querySelector(".cardDiv");
 
-const displayPlayers = ()=>{
-    
-}
+const displayPlayers = () => {
+  cardDiv.innerHTML = "";
+  console.log(data);
+  data.forEach(({ name }) => {
+    cardDiv.innerHTML += `
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">${name}</h5>
+        </div>
+    </div>
+    `;
+  });
+};
+
+//*1.yöntem (en çok kullanılan)
+// gsBtn.addEventListener("click", () => {
+//   displayPlayers();
+//   cardDiv.classList.toggle("visually-hidden");
+// });
+
+//*2.yöntem
+gsBtn.addEventListener("click", () => {
+  if (cardDiv.classList.contains("d-none")) {
+    displayPlayers();
+    cardDiv.classList.remove("d-none");
+  } else {
+    cardDiv.classList.add("d-none");
+  }
+});
