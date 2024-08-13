@@ -213,10 +213,10 @@ const data = [
 
 const gsBtn = document.querySelector(".gsBtn");
 const cardDiv = document.querySelector(".cardDiv");
+const searchInput = document.querySelector(".form-control");
 
-const displayPlayers = () => {
+const displayPlayers = (data) => {
   cardDiv.innerHTML = "";
-  console.log(data);
   data.forEach(({ name }) => {
     cardDiv.innerHTML += `
     <div class="card" style="width: 18rem;">
@@ -229,17 +229,26 @@ const displayPlayers = () => {
 };
 
 //*1.yöntem (en çok kullanılan)
-// gsBtn.addEventListener("click", () => {
-//   displayPlayers();
-//   cardDiv.classList.toggle("visually-hidden");
-// });
+gsBtn.addEventListener("click", () => {
+  displayPlayers(data);
+  cardDiv.classList.toggle("d-none");
+  searchInput.classList.toggle("d-none");
+});
 
 //*2.yöntem
-gsBtn.addEventListener("click", () => {
-  if (cardDiv.classList.contains("d-none")) {
-    displayPlayers();
-    cardDiv.classList.remove("d-none");
-  } else {
-    cardDiv.classList.add("d-none");
-  }
+// gsBtn.addEventListener("click", () => {
+//   if (cardDiv.classList.contains("d-none")) {
+//     displayPlayers();
+//     cardDiv.classList.remove("d-none");
+//   } else {
+//     cardDiv.classList.add("d-none");
+//   }
+// });
+
+searchInput.addEventListener("input", () => {
+  const searchValue = searchInput.value.toLowerCase();
+  const filteredPlayer = data.filter((player) =>
+    player.name.toLowerCase().includes(searchValue)
+  );
+  displayPlayers(filteredPlayer);
 });
